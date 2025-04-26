@@ -167,8 +167,7 @@ class UNET_AttentionBlock(nn.Module):
         
         # (Batch_Size, Features, Height * Width) -> (Batch_Size, Features, Height, Width)
         x = x.view((n, c, h, w))
-
-        # Final skip connection between initial input and output of the block
+        
         # (Batch_Size, Features, Height, Width) + (Batch_Size, Features, Height, Width) -> (Batch_Size, Features, Height, Width)
         return self.conv_output(x) + residue_long
 
@@ -294,12 +293,12 @@ class UNET(nn.Module):
             skip_connections.append(x)
 
         x = self.bottleneck(x, context, time)
-
+        
         for layers in self.decoders:
             # Since we always concat with the skip connection of the encoder, the number of features increases before being sent to the decoder's layer
             x = torch.cat((x, skip_connections.pop()), dim=1) 
             x = layers(x, context, time)
-        
+            
         return x
 
 
