@@ -28,3 +28,4 @@ inputs_stored/
 eval/
 eval_landscape/
 original_work/
+!assets/*.png
