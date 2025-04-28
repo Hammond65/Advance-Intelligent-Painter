@@ -1,11 +1,11 @@
 # Advance-IPainter
 PyTorch implementation of Advance Intelligent Painter
 
-With Advance-IPainter you too can also create some fantastic and meaningful pictures
-
-Such as Daynight cycle!
+Grab the source components you want and mix them together to create meaningful pictures!
 ![input1](assets/000.png)
-![output1](assets/HUCOPE_0.png)
+Such as Daynight Cycle, four Season Changes
+![output1](assets/001.png)
+
 ## Requirements
 
 A suitable [conda](https://docs.conda.io/en/latest/) named `aipainter` can be created and activated with:
