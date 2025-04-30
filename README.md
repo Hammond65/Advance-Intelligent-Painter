@@ -12,18 +12,30 @@ Four Season
 A suitable [conda](https://docs.conda.io/en/latest/) named `aipainter` can be created and activated with:
 
 ```
-conda env create -f environment.yml
+conda create -n aipainter python=3.11
 conda activate aipainter
+pip install -r requirements.txt
 ```
 
 ## Download weights and tokenizer files:
 
+# Window
 1. Download `vocab.json` and `merges.txt` from https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main/tokenizer and save them in the `data` folder
 2. Download `v1-5-pruned-emaonly.ckpt` from https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main and save it in the `data` folder
 
-## Test:
-
-
+# Linux
+```
+cd data
+wget https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/tokenizer/vocab.json
+wget https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/tokenizer/merges.txt
+wget https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
+cd ..
+```
+## Inference:
+To run our model, just simply change the input_path and output_path inside the `config.yaml`
+```
+python demo.py --config config.yaml
+```
 ## Special thanks
 
 Special thanks to the following repositories:

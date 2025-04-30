@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from tqdm import tqdm
-from ddpm import DDPMSampler
+from utils.ddpm import DDPMSampler
 from PIL import Image
 WIDTH = 512
 HEIGHT = 512

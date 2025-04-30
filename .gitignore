@@ -29,3 +29,6 @@ eval/
 eval_landscape/
 original_work/
 !assets/*.png
+!requirements.txt
+utilyaml.py
+./dnnlib/

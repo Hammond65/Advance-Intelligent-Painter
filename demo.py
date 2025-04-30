@@ -1,10 +1,13 @@
-import model_loader
+import utils.model_loader as model_loader
 import os
 import glob
-import pipeline
+import utils.pipeline as pipeline
+import torch
+
 from PIL import Image
 from transformers import CLIPTokenizer
-import torch
+from utils.yaml import load_yaml
+import argparse
 
 def get_safe_filename(base_name, output_dir):
     index = 0
@@ -15,30 +18,25 @@ def get_safe_filename(base_name, output_dir):
         index += 1
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", default="./config.yaml", type=str, help="Configuration")
+    args = parser.parse_args()
+    config = load_yaml(args.config)
     if torch.cuda.is_available():
         DEVICE = "cuda"
     else:
         DEVICE = "cpu"
     print(f"Using device: {DEVICE}")
 
-    tokenizer = CLIPTokenizer("../data/vocab.json", merges_file="../data/merges.txt")
-    model_file = "../data/v1-5-pruned-emaonly.ckpt"
+    tokenizer = CLIPTokenizer(config.vocab_path, merges_file=config.merge_path)
+    model_file = config.checkpoint
     models = model_loader.preload_models_from_standard_weights(model_file, DEVICE)
-    
-    ### Input prompts
-    prompt = "Cat"
-    uncond_prompt = ""
-    
-    ### Level of guidance
-    cfg_scale = 4  # min: 1, max: 14 currently 4 is good
 
     ### Read Files from input folder
     input_image = None
-    input_path = './inputs/'
-    output_path = './eval/'
-    if not os.path.exists(output_path):
-        os.mkdir(output_path)
-    png_files = glob.glob(os.path.join(input_path, '**', '*.png'), recursive=True)
+    if not os.path.exists(config.output_path):
+        os.mkdir(config.output_path)
+    png_files = glob.glob(os.path.join(config.input_path, '**', '*.png'), recursive=True)
     mask_paths = sorted([file for file in png_files if 'mask' in os.path.basename(file)])
     image_paths = sorted([file for file in png_files if 'mask' not in os.path.basename(file)])
 
@@ -46,19 +44,16 @@ if __name__ == "__main__":
         input_image = Image.open(image_path).convert('RGB')
         mask = Image.open(mask_path).convert('L')
         image_name = os.path.splitext(os.path.basename(image_path))[0]
-        sampler = "ddpm"
-        num_inference_steps = 50
-        seed = 42
 
         output_image = pipeline.generate(
-            prompt=prompt,
-            uncond_prompt=uncond_prompt,
+            prompt=config.prompt,
+            uncond_prompt=config.uncondition_prompt,
             input_image=input_image,
             mask=mask,
-            cfg_scale=cfg_scale,
-            sampler_name=sampler,
-            n_inference_steps=num_inference_steps,
-            seed=seed,
+            cfg_scale=config.cfg_scale,
+            sampler_name=config.sampler,
+            n_inference_steps=config.num_inference_steps,
+            seed=config.seed,
             models=models,
             device=DEVICE,
             idle_device="cpu",
@@ -66,5 +61,5 @@ if __name__ == "__main__":
         )
         # Combine the input image and the output image into a single image.
         img = Image.fromarray(output_image)
-        file_name = get_safe_filename(image_name, output_path)
+        file_name = get_safe_filename(image_name, config.output_path)
         img.save(file_name)

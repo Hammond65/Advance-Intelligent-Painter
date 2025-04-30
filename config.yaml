@@ -1,0 +1,20 @@
+# Prompt
+prompt: Landscape, environment, scenery
+uncondition_prompt: ""
+cfg_scale: 4 # min: 1, max: 14
+
+# input and output path, the file names should be
+# [image_name].png or .jpg and [mask_name]_mask.png or .jpg
+# Note the [image_name] and [mask_name] should be same
+input_path: ./eval_landscape/
+output_path: ./temp/
+
+# Path config
+vocab_path: ./data/vocab.json
+merge_path: ./data/merges.txt
+checkpoint: ./data/v1-5-pruned-emaonly.ckpt
+
+# other config
+seed: 42
+sampler: ddpm
+num_inference_steps: 50
