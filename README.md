@@ -31,7 +31,7 @@ wget https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/
 wget https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt
 cd ..
 ```
-## Inference:
+## Inference
 To run our model, just simply change the input_path and output_path inside the `config.yaml`
 ```
 python demo.py --config config.yaml
