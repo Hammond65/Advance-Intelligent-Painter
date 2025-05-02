@@ -31,4 +31,4 @@ original_work/
 !assets/*.png
 !requirements.txt
 utilyaml.py
-./dnnlib/
+dnnlib/
