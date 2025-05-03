@@ -19,7 +19,7 @@ def get_safe_filename(base_name, output_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", default="./config.yaml", type=str, help="Configuration")
+    parser.add_argument("--config", type=str, help="Configuration")
     args = parser.parse_args()
     config = load_yaml(args.config)
     if torch.cuda.is_available():

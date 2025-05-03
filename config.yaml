@@ -10,11 +10,12 @@ input_path: ./eval_landscape/
 output_path: ./temp/
 
 # Path config
-vocab_path: ./data/vocab.json
-merge_path: ./data/merges.txt
-checkpoint: ./data/v1-5-pruned-emaonly.ckpt
+vocab_path: ./../data/vocab.json
+merge_path: ./../data/merges.txt
+checkpoint: ./../data/v1-5-pruned-emaonly.ckpt
 
 # other config
 seed: 42
 sampler: ddpm
 num_inference_steps: 50
+device: cuda

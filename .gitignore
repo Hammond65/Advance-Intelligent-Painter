@@ -30,5 +30,6 @@ eval_landscape/
 original_work/
 !assets/*.png
 !requirements.txt
+!license.txt
 utilyaml.py
 dnnlib/
