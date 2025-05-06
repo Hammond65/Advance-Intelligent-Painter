@@ -45,3 +45,7 @@ Special thanks to the following repositories:
 1. https://github.com/kjsman/stable-diffusion-pytorch
 1. https://github.com/huggingface/diffusers/
 1. https://github.com/hkproj/pytorch-stable-diffusion
+
+## Copyright
+
+Copyright preserve by The Hong Kong Polytechnic University and Saint Francis University 
