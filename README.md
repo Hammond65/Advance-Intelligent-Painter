@@ -7,9 +7,9 @@
 In the Advance Intelligent Painter, you can select the source components you want and combine them to create meaningful images. For example, you could take **rivers** and **houses** and place them in their respective locations within the composite box.
 ![input1](assets/000.png)
 Next, input the prompt to align with your imagination, such as a **Day-Night cycle**.
-![output1](assets/001.png)
+![output1](assets/003.png)
 Or **Four seasons**.
-![output2](assets/002.png)
+![output2](assets/004.png)
 ## Requirements
 
 A suitable [conda](https://docs.conda.io/en/latest/) named `aipainter` can be created and activated with:
