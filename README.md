@@ -1,7 +1,12 @@
 # Advance-IPainter
-PyTorch implementation of Advance Intelligent Painter
+### PyTorch implementation of Advance Intelligent Painter:
 
-Grab the source components you want and mix them together to create meaningful pictures!
+```
+Hon-Man Hammond Lee, Siu Wan-Chi, Felix Ming-Fei Duan, Yi-Hao Cheng, and H. Anthony Chan. "Intelligent Picture Painting under Deep Learning with Text Enhancement," in Proc. of International Conference on Digital Signal Processing (DSP). 25-27 Jun. 2025, Costa Navarino, Messinia, Greece.
+```
+
+### About
+In Advance Intelligent Painter, you could grab the source components you want and mix them together to create meaningful pictures! Such as rivers and houses shown in the example and put them into corresponding places in the composite box.
 ![input1](assets/000.png)
 Daynight Cycle
 ![output1](assets/001.png)
