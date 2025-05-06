@@ -4,11 +4,11 @@
 >Hon-Man Hammond Lee, Siu Wan-Chi, Felix Ming-Fei Duan, Yi-Hao Cheng, and H. Anthony Chan. "Intelligent Picture Painting under Deep Learning with Text Enhancement," in Proc. of International Conference on Digital Signal Processing (DSP). 25-27 Jun. 2025, Costa Navarino, Messinia, Greece.
 
 ### About
-In Advance Intelligent Painter, you could grab the source components you want and mix them together to create meaningful pictures! Such as rivers and houses shown in the example and put them into corresponding places in the composite box.
+In the Advance Intelligent Painter, you can select the source components you want and combine them to create meaningful images. For example, you could take **rivers** and **houses** and place them in their respective locations within the composite box.
 ![input1](assets/000.png)
-Daynight Cycle
+Next, input the prompt to align with your imagination, such as a **Day-Night cycle**.
 ![output1](assets/001.png)
-Four Season
+Or **Four seasons**.
 ![output2](assets/002.png)
 ## Requirements
 
@@ -23,8 +23,8 @@ pip install -r requirements.txt
 ## Download weights and tokenizer files:
 
 ### Window
-1. Download `vocab.json` and `merges.txt` from https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main/tokenizer and save them in the `data` folder
-2. Download `v1-5-pruned-emaonly.ckpt` from https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main and save it in the `data` folder
+1. Download `vocab.json` and `merges.txt` from https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main/tokenizer and save them in the `data` folder.
+2. Download `v1-5-pruned-emaonly.ckpt` from https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/tree/main and save it in the `data` folder.
 
 ### Linux
 ```
@@ -35,7 +35,7 @@ wget https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/
 cd ..
 ```
 ## Inference
-To run our model, just simply change the input_path and output_path inside the `config.yaml`
+To run our model, just simply change the input_path and output_path inside the `config.yaml`.
 ```
 python demo.py --config config.yaml
 ```
@@ -51,4 +51,4 @@ Special thanks to the following repositories:
 
 ## Copyright
 
-Copyright preserve by The Hong Kong Polytechnic University and Saint Francis University 
+Copyright preserve by The Hong Kong Polytechnic University and Saint Francis University.
