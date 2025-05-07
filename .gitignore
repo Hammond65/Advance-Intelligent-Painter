@@ -29,6 +29,7 @@ eval/
 eval_landscape/
 original_work/
 !assets/*.png
+!assets/**/*.png
 !requirements.txt
 !license.txt
 utilyaml.py
