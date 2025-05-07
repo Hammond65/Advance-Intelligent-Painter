@@ -4,9 +4,9 @@
 >Hon-Man Hammond Lee, Siu Wan-Chi, Felix Ming-Fei Duan, Yi-Hao Cheng, and H. Anthony Chan, "Intelligent Picture Painting under Deep Learning with Text Enhancement," Proceedings, International Conference on Digital Signal Processing (DSP2025). 25-27 June 2025, Costa Navarino, Messinia, Greece.
 
 ### About
-In the Advance Intelligent Painter, you can select the source components you want and combine them to create meaningful images. For example, you could take **rivers** and **houses** and place them in their respective locations within the composite box.
+In the Advance Intelligent Painter, you can select the source components you want and combine them to create meaningful pictures. For example, you can take shots of **river** and **house** and place them in the desirable locations within the composite box.
 ![input1](assets/000.png)
-Next, input the prompt to align with your imagination, such as a **Day-Night cycle**.
+Next, input the text to align with your imagination, such as a **Day-Night cycle**.
 ![output1](assets/003.png)
 Or **Four seasons**.
 ![output2](assets/004.png)
