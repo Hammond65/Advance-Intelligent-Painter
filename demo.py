@@ -58,6 +58,7 @@ if __name__ == "__main__":
             device=DEVICE,
             idle_device="cpu",
             tokenizer=tokenizer,
+            config=config,
         )
         # Combine the input image and the output image into a single image.
         img = Image.fromarray(output_image)

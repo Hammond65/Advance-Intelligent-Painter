@@ -16,11 +16,11 @@ class DDPMSampler:
         self.num_train_timesteps = num_training_steps
         self.timesteps = torch.from_numpy(np.arange(0, num_training_steps)[::-1].copy())
 
-    def set_inference_timesteps(self, num_inference_steps=50):
+    def set_inference_timesteps(self, num_inference_steps=50, config=None):
         self.num_inference_steps = num_inference_steps
         step_ratio = self.num_train_timesteps // self.num_inference_steps
         timesteps = (np.arange(0, num_inference_steps) * step_ratio).round().copy().astype(np.int64)
-        timesteps = self._set_schedular(num_inference_steps,timesteps)[::-1]
+        timesteps = self._set_schedular(num_inference_steps,timesteps,stop_resampling=config.stop_resampling, jump_length=config.jump_length, cycle=config.cycle)[::-1]
         self.timesteps = torch.tensor(timesteps)
         
     def _set_schedular(self, num_inference_steps, timesteps, jump_length=5, cycle=5, stop_resampling=500, start_resampling=10000):### cycle to 0 to disable loop
@@ -66,7 +66,7 @@ class DDPMSampler:
 
         return variance
 
-    def step(self, timestep: int, latents: torch.Tensor, model_output: torch.Tensor, models=None, masked_img=None, gt_mask=None, index: int = None):
+    def step(self, timestep: int, latents: torch.Tensor, model_output: torch.Tensor, models=None, masked_img=None, gt_mask=None, index: int = None, config=None):
         t = timestep
         prev_t = self._get_previous_timestep(t)
 
@@ -83,7 +83,7 @@ class DDPMSampler:
         pred_original_sample = (latents - beta_prod_t ** (0.5) * model_output) / alpha_prod_t ** (0.5)
         
         # Original Masking
-        if gt_mask is not None and timestep >= 50:
+        if gt_mask is not None and timestep >= config.masking_stop:
             pred_original_sample = self.masking(timestep, latents, model_output, models, masked_img, gt_mask)
             
         # 4. Compute coefficients for pred_original_sample x_0 and current sample x_t

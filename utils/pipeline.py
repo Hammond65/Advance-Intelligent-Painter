@@ -21,6 +21,7 @@ def generate(
     device=None,
     idle_device=None,
     tokenizer=None,
+    config=None,
 ):
     with torch.no_grad():
         if idle_device:
@@ -59,7 +60,7 @@ def generate(
 
         if sampler_name == "ddpm":
             sampler = DDPMSampler(generator)
-            sampler.set_inference_timesteps(n_inference_steps)
+            sampler.set_inference_timesteps(n_inference_steps, config)
         else:
             raise ValueError("Unknown sampler value %s. ")
 
@@ -104,10 +105,10 @@ def generate(
 
                 output_cond, output_uncond = model_output.chunk(2)
                 model_output = cfg_scale * (output_cond - output_uncond) + output_uncond
-                latents = sampler.step(t_cur, latents, model_output, models, latents_gt, mask_tensor, i)
+                latents = sampler.step(t_cur, latents, model_output, models, latents_gt, mask_tensor, i, config)
                 
                 # Mean Conditional Masking
-                if t_cur >= 100:
+                if t_cur >= config.mean_masking_stop:
                     latents = sampler.mean_masking(t_cur, latents, model_output, models, latents_gt, mask_tensor)
             else:
                 t_last = t_last + sampler.num_train_timesteps // sampler.num_inference_steps
