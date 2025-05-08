@@ -53,3 +53,4 @@ Special thanks to the following repositories:
 ## Copyright
 
 Copyright preserve by The Hong Kong Polytechnic University and Saint Francis University.
+Users can use this package for further development. However, it is not for commerical use.
