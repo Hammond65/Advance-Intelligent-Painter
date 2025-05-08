@@ -6,7 +6,7 @@ cfg_scale: 4 # min: 1, max: 14
 # input and output path, the file names should be
 # [image_name].png or .jpg and [mask_name]_mask.png or .jpg
 # Note the [image_name] and [mask_name] should be same
-input_path: ./eval_landscapev2/
+input_path: ./inputs/
 output_path: ./temp/
 
 # Path config
@@ -17,7 +17,7 @@ checkpoint: ./data/v1-5-pruned-emaonly.ckpt
 # other config
 seed: 42
 sampler: ddpm
-num_inference_steps: 250
+num_inference_steps: 50
 device: cuda
 mean_masking_stop: 0 #100
 masking_stop: 0 # 50

@@ -17,6 +17,7 @@ A suitable [conda](https://docs.conda.io/en/latest/) named `aipainter` can be cr
 ```
 conda create -n aipainter python=3.11
 conda activate aipainter
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install -r requirements.txt
 ```
 

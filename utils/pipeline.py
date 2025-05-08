@@ -57,7 +57,9 @@ def generate(
         context = torch.cat([cond_context, uncond_context])
 
         to_idle(clip)
-
+        del clip
+        torch.cuda.empty_cache()
+        
         if sampler_name == "ddpm":
             sampler = DDPMSampler(generator)
             sampler.set_inference_timesteps(n_inference_steps, config)
@@ -121,6 +123,8 @@ def generate(
         # (Batch_Size, 4, Latents_Height, Latents_Width) -> (Batch_Size, 3, Height, Width)
         images = decoder(latents)
         to_idle(decoder)
+        
+        # images = images * (1-tensor_mask(mask).to(device)) + input_image_tensor * tensor_mask(mask).to(device)
 
         images = rescale(images, (-1, 1), (0, 255), clamp=True)
         # (Batch_Size, Channel, Height, Width) -> (Batch_Size, Height, Width, Channel)
@@ -150,6 +154,14 @@ def preprocess_mask(mask):
     mask = mask.resize((w // 8, h // 8), resample=Image.NEAREST)
     mask = np.array(mask).astype(np.float32) / 255.0
     mask = np.tile(mask, (4, 1, 1))
+    mask = mask[None].transpose(0, 1, 2, 3)
+    mask = torch.from_numpy(mask)
+    return mask
+
+def tensor_mask(mask):
+    mask = mask.convert("L")
+    mask = np.array(mask).astype(np.float32) / 255.0
+    mask = np.tile(mask, (3, 1, 1))
     mask = mask[None].transpose(0, 1, 2, 3)
     mask = torch.from_numpy(mask)
     return mask

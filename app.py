@@ -3,11 +3,14 @@ import torch
 import utils.model_loader as model_loader
 import utils.pipeline as pipeline
 import base64
+import cv2
+import numpy as np
 
 from PIL import Image
 from transformers import CLIPTokenizer
 from pathlib import Path
 from utils.yaml import load_yaml
+from torch.amp import autocast
 
 example_data_dir = "assets/objects/"
 exts = ['jpg', 'jpeg', 'png']
@@ -38,24 +41,28 @@ def process_images(base64_str, prompt):
     print(f"User Prompt: {prompt}")
 
     alpha = image.getchannel("A")
-    mask = alpha.point(lambda a: 255 if a == 255 else 0).convert("L")
+    mask = alpha.point(lambda a: 255 if a >= 240 else 0).convert("L")
+    erode_kernel=3
+    kernel = np.ones((erode_kernel,erode_kernel), np.uint8)
+    mask = Image.fromarray(cv2.erode(np.array(mask), kernel, iterations = 1))
     image = image.convert('RGB')
-    output_image = pipeline.generate(
-            prompt=prompt,
-            uncond_prompt=config.uncondition_prompt,
-            input_image=image,
-            mask=mask,
-            cfg_scale=config.cfg_scale,
-            sampler_name=config.sampler,
-            n_inference_steps=config.num_inference_steps,
-            seed=config.seed,
-            models=models,
-            device=device,
-            idle_device="cpu",
-            tokenizer=tokenizer,
-            config=config,
-        )
-
+    with autocast("cuda",dtype=torch.float16):
+        output_image = pipeline.generate(
+                prompt=prompt,
+                uncond_prompt=config.uncondition_prompt,
+                input_image=image,
+                mask=mask,
+                cfg_scale=config.cfg_scale,
+                sampler_name=config.sampler,
+                n_inference_steps=config.num_inference_steps,
+                seed=config.seed,
+                models=models,
+                device=device,
+                idle_device="cpu",
+                tokenizer=tokenizer,
+                config=config,
+            )
+    
     return output_image
 
 with open("utils/scripts.js", "r") as js_file:

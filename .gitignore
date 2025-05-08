@@ -34,3 +34,5 @@ original_work/
 !license.txt
 utilyaml.py
 dnnlib/
+.gradio/
+temp.py
