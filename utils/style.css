@@ -41,8 +41,16 @@
     font-size: 16px;
 }
 
+.process-btn, #exampleButton {
+    background-color: #ce5555;
+}
+
 .choose-file-btn:hover, .process-btn:hover, .action-btn:hover {
     background-color: #0056b3;
+}
+
+.process-btn:hover, #exampleButton:hover {
+    background-color: #ce5555;
 }
 
 .button-group {

@@ -76,7 +76,7 @@ html_content = """
     <div class="centered-content">
         <div class="top-button-group">
             <button class="choose-file-btn" id="chooseFileButton">Choose File</button>
-            <button class="action-btn" id="exampleButton">Add Example</button>
+            <button class="action-btn" id="exampleButton">Add Item</button>
         </div>
         <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
         <canvas id="canvas" class="canvas" width="512" height="512"></canvas>
